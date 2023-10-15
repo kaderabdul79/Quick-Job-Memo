@@ -42,4 +42,10 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    // a user can add many job memos
+    public function jobMemos()
+    {
+        return $this->hasMany(JobMemo::class);
+    }
 }
