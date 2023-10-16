@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\ResponseHelper;
 use App\Models\JobMemo;
 use Illuminate\Http\Request;
 
@@ -11,14 +12,16 @@ class JobMemoController extends Controller
     {
         $jobMemos = JobMemo::all();
 
-        return response()->json(['data' => $jobMemos], 200);
+        $response = ResponseHelper::successResponse("Received List of jobMemos!", $data = $jobMemos);
+        return response()->json($response);
     }
 
     public function show(JobMemo $jobMemo)
     {
-        return response()->json(['data' => $jobMemo], 200);
+        $response = ResponseHelper::successResponse("Received data requested jobMemo!", $data = $jobMemo);
+        return response()->json($response);
     }
-    
+
     public function store(Request $request)
     {
         // Add logic to store a new job memo in the database
