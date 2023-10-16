@@ -10,16 +10,26 @@ class JobMemoController extends Controller
 {
     public function index()
     {
-        $jobMemos = JobMemo::all();
+        try {
+            $jobMemos = JobMemo::all();
 
-        $response = ResponseHelper::successResponse("Received List of jobMemos!", $data = $jobMemos);
-        return response()->json($response);
+            $response = ResponseHelper::successResponse("Received List of jobMemos!", $data = $jobMemos);
+            return response()->json($response);
+        } catch (\Exception $e) {
+            $response = ResponseHelper::errorResponse("An error occurred while fetching job memos.", 500);
+            return response()->json($response);
+        }
     }
 
     public function show(JobMemo $jobMemo)
     {
-        $response = ResponseHelper::successResponse("Received data requested jobMemo!", $data = $jobMemo);
-        return response()->json($response);
+        try {
+            $response = ResponseHelper::successResponse("Received data requested jobMemo!", $data = $jobMemo);
+            return response()->json($response);
+        } catch (\Exception $e) {
+            $response = ResponseHelper::errorResponse("An error occurred while fetching the job memo.", 500);
+            return response()->json($response);
+        }
     }
 
     public function store(Request $request)
