@@ -19,8 +19,6 @@ return new class extends Migration
             $table->string('experience')->nullable();
             $table->string('tech_stack')->nullable();
             $table->string('location')->nullable();;
-            $table->boolean('interview_called')->default(false);
-            $table->boolean('interview_attended')->default(false);
             $table->timestamps();
         });
     }

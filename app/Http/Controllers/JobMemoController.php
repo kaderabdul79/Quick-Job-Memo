@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Helpers\ResponseHelper;
 use App\Models\JobMemo;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class JobMemoController extends Controller
 {
@@ -34,7 +35,39 @@ class JobMemoController extends Controller
 
     public function store(Request $request)
     {
-        // Add logic to store a new job memo in the database
+        try {
+            // Validate request info.
+            $validator = Validator::make($request->all(), [
+                'job_title' => 'required|string|max:255',
+                'deadline' => 'required|date',
+                'experience' => 'string|max:255',
+                'tech_stack' => 'string|max:255',
+                'location' => 'string|max:255',
+            ]);
+
+            // If validation fails
+            if ($validator->fails()) {
+                $response = ResponseHelper::errorResponse($validator->errors(), 422);
+                return response()->json($response);
+            }
+
+            // Create job memo
+            $jobMemo = JobMemo::create([
+                'job_title' => $request->input('job_title'),
+                'deadline' => $request->input('deadline'),
+                'experience' => $request->input('experience'),
+                'tech_stack' => $request->input('tech_stack'),
+                'location' => $request->input('location'),
+                'interview_called' => $request->input('interview_called'),
+                'interview_attended' => $request->input('interview_attended'),
+            ]);
+
+            $response = ResponseHelper::successResponse("Job memo created successfully!", $data = $jobMemo);
+            return response()->json($response, 201);
+        } catch (\Exception $e) {
+            $response = ResponseHelper::errorResponse("An error occurred while creating the job memo.", 500);
+            return response()->json($response);
+        }
     }
 
     public function edit(JobMemo $jobMemo)
