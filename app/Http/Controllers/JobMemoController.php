@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\ResponseHelper;
+use App\Http\Requests\JobMemoRequest;
 use App\Models\JobMemo;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -34,27 +35,17 @@ class JobMemoController extends Controller
         }
     }
 
-    public function store(Request $request)
+    public function store(JobMemoRequest $request)
     {  
-
+// return $request;
+// dd($request->all()); 
         try {
-            // Validate request info.
-            $validator = Validator::make($request->all(), [
-                'job_title' => 'required|string|max:255',
-                'deadline' => 'date',
-                'experience' => 'string|max:255',
-                'tech_stack' => 'string|max:255',
-                'location' => 'string|max:255',
-            ]);
-
-            // If validation fails
-            if ($validator->fails()) {
-                $response = ResponseHelper::errorResponse($validator->errors(), 422);
-                return response()->json($response);
-            }
 
             $user = User::where('email', 'kader@gmail.com')->first();
-            if($user){
+            if (!$user) {
+                $response = ResponseHelper::errorResponse("User not found.", 404);
+                return response()->json($response);
+            }
                 // Create job memo
                 $jobMemo = JobMemo::create([
                     'user_id' => $user->id,
@@ -66,7 +57,6 @@ class JobMemoController extends Controller
                     'interview_called' => $request->input('interview_called'),
                     'interview_attended' => $request->input('interview_attended'),
                 ]);
-            }
 
             $response = ResponseHelper::successResponse("Job memo created successfully!", $data = $jobMemo);
             return response()->json($response, 201);
