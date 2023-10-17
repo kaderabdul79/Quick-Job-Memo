@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Helpers\ResponseHelper;
 use App\Models\JobMemo;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -34,12 +35,13 @@ class JobMemoController extends Controller
     }
 
     public function store(Request $request)
-    {
+    {  
+
         try {
             // Validate request info.
             $validator = Validator::make($request->all(), [
                 'job_title' => 'required|string|max:255',
-                'deadline' => 'required|date',
+                'deadline' => 'date',
                 'experience' => 'string|max:255',
                 'tech_stack' => 'string|max:255',
                 'location' => 'string|max:255',
@@ -51,16 +53,20 @@ class JobMemoController extends Controller
                 return response()->json($response);
             }
 
-            // Create job memo
-            $jobMemo = JobMemo::create([
-                'job_title' => $request->input('job_title'),
-                'deadline' => $request->input('deadline'),
-                'experience' => $request->input('experience'),
-                'tech_stack' => $request->input('tech_stack'),
-                'location' => $request->input('location'),
-                'interview_called' => $request->input('interview_called'),
-                'interview_attended' => $request->input('interview_attended'),
-            ]);
+            $user = User::where('email', 'kader@gmail.com')->first();
+            if($user){
+                // Create job memo
+                $jobMemo = JobMemo::create([
+                    'user_id' => $user->id,
+                    'job_title' => $request->input('job_title'),
+                    'deadline' => $request->input('deadline'),
+                    'experience' => $request->input('experience'),
+                    'tech_stack' => $request->input('tech_stack'),
+                    'location' => $request->input('location'),
+                    'interview_called' => $request->input('interview_called'),
+                    'interview_attended' => $request->input('interview_attended'),
+                ]);
+            }
 
             $response = ResponseHelper::successResponse("Job memo created successfully!", $data = $jobMemo);
             return response()->json($response, 201);

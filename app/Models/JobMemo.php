@@ -12,6 +12,7 @@ class JobMemo extends Model
     protected $fillable = [
         'job_title', 'deadline', 'experience', 'tech_stack', 'location',
         'interview_called', 'interview_attended',
+        'user_id'
     ];
 
     // Carbon instance for date format
