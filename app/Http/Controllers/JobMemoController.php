@@ -68,16 +68,54 @@ class JobMemoController extends Controller
 
     public function edit(JobMemo $jobMemo)
     {
-        // Add logic to show the form for editing a job memo
+        try {
+            $response = ResponseHelper::successResponse("Edit job memo.", $data = $jobMemo);
+            return response()->json($response);
+        } catch (\Exception $e) {
+            $response = ResponseHelper::errorResponse("An error occurred.", 500);
+            return response()->json($response);
+        }    
     }
 
-    public function update(Request $request, JobMemo $jobMemo)
+    public function update(Request $request, $id)
     {
-        // Add logic to update a job memo in the database
+        try {  
+            $user = User::where('email', 'kader@gmail.com')->first();
+            if (!$user) {
+                $response = ResponseHelper::errorResponse("User not found.", 404);
+                return response()->json($response);
+            }
+            $jobMemos = jobMemo::find($id);
+            // Update job memo
+            $jobMemos->update([
+                'user_id' => $user->id,
+                'job_title' => $request->input('job_title'),
+                'deadline' => $request->input('deadline'),
+                'experience' => $request->input('experience'),
+                'tech_stack' => $request->input('tech_stack'),
+                'location' => $request->input('location'),
+                'interview_called' => $request->input('interview_called'),
+                'interview_attended' => $request->input('interview_attended'),
+            ]);
+            $response = ResponseHelper::successResponse("Job memo updated successfully!", $data = $jobMemos);
+            return response()->json($response);
+        } catch (\Exception $e) {
+            $response = ResponseHelper::errorResponse("An error occurred while update job memo.", 500);
+            return response()->json($response);
+        }
     }
 
     public function destroy(JobMemo $jobMemo)
     {
-        // Add logic to delete a job memo from the database
+        try {
+            // Delete job memo
+            $jobMemo->delete();
+            // Return success response
+            $response = ResponseHelper::successResponse("Job memo deleted successfully!");
+            return response()->json($response);
+        } catch (\Exception $e) {
+            $response = ResponseHelper::errorResponse("An error occurred while deleting the job memo.", 500);
+            return response()->json($response);
+        }
     }
 }
