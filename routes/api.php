@@ -25,6 +25,7 @@ use Illuminate\Support\Facades\Route;
 
 // users
 Route::post('/register', [AuthController::class, 'register']);
+Route::post('/login', [AuthController::class, 'login'])->name('login');
 
 // 
 Route::resource('job-memos', JobMemoController::class);

@@ -33,4 +33,22 @@ class AuthController extends Controller
             $response = ResponseHelper::errorResponse(['error' => 'Registration failed.'], 500);
         }
     }
+
+    // user login
+    public function login(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|email',
+            'password' => 'required',
+        ]);
+
+        if (Auth::attempt($request->only('email', 'password'))) {
+            $user = Auth::user();
+            $token = $user->createToken('app-login-token')->plainTextToken;
+
+            return response()->json(['token' => $token, 'user' => $user], 200);
+        }
+
+        return response()->json(['message' => 'Invalid credentials'], 401);
+    }
 }
