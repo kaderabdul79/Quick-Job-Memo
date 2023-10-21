@@ -51,4 +51,20 @@ class AuthController extends Controller
 
         return response()->json(['message' => 'Invalid credentials'], 401);
     }
+    // if token match provide user details handle by snactum middleware
+    public function getUser(Request $request)
+    {
+        try {
+            $user = $request->user();
+
+            if ($user) {
+                return response()->json(['user' => $user]);
+            } else {
+                return response()->json(['error' => 'User not authenticated.'], 401);
+            }
+        } catch (\Exception $e) {
+
+            return response()->json(['error' => 'Unable to fetch user data.'], 500);
+        }
+    }
 }
