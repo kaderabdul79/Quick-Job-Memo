@@ -28,9 +28,10 @@ class AuthController extends Controller
 
             $token = $user->createToken('auth_token')->plainTextToken;
 
-            return response()->json(['token' => $token, 'user' => $user]);
+            return response()->json(['token' => $token, 'data' => $user]);
         } catch (\Exception $e) {
-            $response = ResponseHelper::errorResponse(['error' => 'Registration failed.'], 500);
+            $response = ResponseHelper::errorResponse("Registration failed.", 500);
+            return response()->json($response);
         }
     }
 
@@ -46,11 +47,12 @@ class AuthController extends Controller
             $user = Auth::user();
             $token = $user->createToken('app-login-token')->plainTextToken;
 
-            return response()->json(['token' => $token, 'user' => $user], 200);
+            return response()->json(['token' => $token, 'data' => $user], 200);
         }
-
-        return response()->json(['message' => 'Invalid credentials'], 401);
+        $response = ResponseHelper::errorResponse("Invalid credentials.", 401);
+        return response()->json($response);
     }
+
     // if token match provide user details handle by snactum middleware
     public function getUser(Request $request)
     {
@@ -58,13 +60,15 @@ class AuthController extends Controller
             $user = $request->user();
 
             if ($user) {
-                return response()->json(['user' => $user]);
+                $response = ResponseHelper::successResponse('User details', $data = $user);
+                return response()->json($response);
             } else {
-                return response()->json(['error' => 'User not authenticated.'], 401);
+                $response = ResponseHelper::errorResponse("User not authenticated.", 401);
+                return response()->json($response);
             }
         } catch (\Exception $e) {
-
-            return response()->json(['error' => 'Unable to fetch user data.'], 500);
+            $response = ResponseHelper::errorResponse("Unable to fetch user data.", 500);
+            return response()->json($response);
         }
     }
 
