@@ -27,6 +27,6 @@ use Illuminate\Support\Facades\Route;
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login'])->name('login');
 Route::middleware('auth:sanctum')->get('/user', [AuthController::class, 'getUser']);
-
+Route::middleware('auth:sanctum')->delete('/logout', [AuthController::class, 'logout']);
 // 
 Route::resource('job-memos', JobMemoController::class);

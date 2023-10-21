@@ -67,4 +67,18 @@ class AuthController extends Controller
             return response()->json(['error' => 'Unable to fetch user data.'], 500);
         }
     }
+
+    // if token match logout the authenticate user
+    public function logout(Request $request)
+    {
+        try {
+            $request->user()->tokens()->delete();
+
+            $response = ResponseHelper::successResponse('Logout successful');
+            return response()->json($response);
+            } catch (\Exception $e) {
+                $response = ResponseHelper::errorResponse("Failed to logout.", 401);
+                return response()->json($response);
+            }
+    }
 }
