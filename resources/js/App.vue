@@ -2,6 +2,7 @@
 import { RouterView } from 'vue-router'
 import {ref} from 'vue'
 import SiteFooter from './components/SiteFooter.vue';
+import SiteCarousal from './components/SiteCarousal.vue';
 
 const items = ref([
         { text: 'My Files', icon: 'mdi-folder' },
@@ -53,6 +54,7 @@ const items = ref([
   </div>
     <!--  -->
     <v-main no-gutters>
+      <SiteCarousal />
       <RouterView />
     </v-main>
     <!-- footer -->
