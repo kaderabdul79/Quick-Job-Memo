@@ -19,7 +19,10 @@ const vuetify = createVuetify({
       defaultSet: 'mdi', 
     },
     theme: {
-
+      // colors: {
+      //   primary: '#ECEFF1',
+      //   secondary: '#FF7043'
+      // }
     },
 })
 
