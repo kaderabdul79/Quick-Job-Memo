@@ -44,7 +44,7 @@ function handleLogin(){
     }).then(response => {
       console.log(response.data);
       localStorage.setItem('token', response.data.token); 
-      router.push('/home')
+      router.push('/')
     }).catch(error => {
       console.error(error);
       user.value.errors.errors = error.response.data.errors;
@@ -52,9 +52,9 @@ function handleLogin(){
   });
 }
 onMounted(()=>{
-    axios.get('sanctum/csrf-cookie').then(response => {
-        console.log(response);
-    });
+    // axios.get('sanctum/csrf-cookie').then(response => {
+    //     console.log(response);
+    // });
 })
 </script>
 
