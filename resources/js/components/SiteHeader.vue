@@ -11,7 +11,7 @@
       <div v-if="user">
           <v-btn> Welcome : {{ user.name}}</v-btn>  
           <v-btn class="bg-primary mr-2">Add New job Memo<v-icon>mdi mdi-plus</v-icon></v-btn>
-          <v-btn class="bg-primary mr-2">Logout<v-icon>mdi mdi-logout</v-icon>
+          <v-btn  @click="handleLogout" class="bg-primary mr-2">Logout<v-icon>mdi mdi-logout</v-icon>
       </v-btn>
       </div>   
       <!--  -->
@@ -52,6 +52,14 @@ onMounted(async () => {
     console.error(error);
   }
 });
+
+// logout
+const handleLogout = () => {
+  user.value = null;
+  // Remove token from local storage
+  localStorage.removeItem('token');
+  router.push({ name: 'login' });
+};
 </script>
 
 <style scoped>
