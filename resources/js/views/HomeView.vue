@@ -5,7 +5,6 @@
       <p>User Information:</p>
       <ul>
         <li>Email: {{ user.email }}</li>
-        <!-- Add more user information as needed -->
       </ul>
     </div>
     <div v-else>
