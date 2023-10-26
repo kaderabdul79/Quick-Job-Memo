@@ -31,35 +31,40 @@
 import { ref, onMounted } from 'vue';
 import axios from 'axios';
 axios.defaults.baseURL = "http://127.0.0.1:8000/api/";
+import useAuth from '@/composables/useAuth.js'
+const {  user,fetchUser, handleLogout} = useAuth()
+console.log(useAuth());
+onMounted(()=>{
+  fetchUser()
+})
+// const user = ref(null);
 
-const user = ref(null);
+// onMounted(async () => {
+//   try {
+//     // retrive token from local storage
+//     const storedToken = localStorage.getItem('token');
 
-onMounted(async () => {
-  try {
-    // retrive token from local storage
-    const storedToken = localStorage.getItem('token');
+//     if (storedToken) {
+//       // Set the stored token in the headers
+//       axios.defaults.headers.common['Authorization'] = `Bearer ${storedToken}`;
 
-    if (storedToken) {
-      // Set the stored token in the headers
-      axios.defaults.headers.common['Authorization'] = `Bearer ${storedToken}`;
-
-      // Retrieve user information
-      const response = await axios.get('user');
-      console.log(response);
-      user.value = response.data.data;
-    }
-  } catch (error) {
-    console.error(error);
-  }
-});
+//       // Retrieve user information
+//       const response = await axios.get('user');
+//       console.log(response);
+//       user.value = response.data.data;
+//     }
+//   } catch (error) {
+//     console.error(error);
+//   }
+// });
 
 // logout
-const handleLogout = () => {
-  user.value = null;
-  // Remove token from local storage
-  localStorage.removeItem('token');
-  router.push({ name: 'login' });
-};
+// const handleLogout = () => {
+//   user.value = null;
+//   // Remove token from local storage
+//   localStorage.removeItem('token');
+//   router.push({ name: 'login' });
+// };
 </script>
 
 <style scoped>
