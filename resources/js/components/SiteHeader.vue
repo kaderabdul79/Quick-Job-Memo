@@ -10,7 +10,8 @@
       <!--  -->
       <div v-if="user">
           <v-btn> Welcome : {{ user.name}}</v-btn>  
-          <v-btn class="bg-primary mr-2">Add New job Memo<v-icon>mdi mdi-plus</v-icon></v-btn>
+          <v-btn class="bg-primary mr-2">Add New job Memo<Create/><v-icon>mdi mdi-plus</v-icon></v-btn>
+          
           <v-btn  @click="handleLogout" class="bg-primary mr-2">Logout<v-icon>mdi mdi-logout</v-icon>
       </v-btn>
       </div>   
@@ -28,12 +29,13 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, defineEmits } from 'vue';
 import axios from 'axios';
 axios.defaults.baseURL = "http://127.0.0.1:8000/api/";
 import useAuth from '@/composables/useAuth.js'
+import Create from '../views/jobMemo/Create.vue';
 const {  user,fetchUser, handleLogout} = useAuth()
-console.log(useAuth());
+// console.log(useAuth());
 onMounted(()=>{
   fetchUser()
 })
@@ -65,6 +67,7 @@ onMounted(()=>{
 //   localStorage.removeItem('token');
 //   router.push({ name: 'login' });
 // };
+
 </script>
 
 <style scoped>

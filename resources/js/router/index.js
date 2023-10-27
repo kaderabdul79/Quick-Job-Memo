@@ -14,6 +14,11 @@ const router = createRouter({
       name: 'login',
       component: () => import("../views/Login.vue") 
     },
+    { 
+      path: "/jobmemo/create", 
+      name: 'createJobMemo',
+      component: () => import("../views/jobMemo/Create.vue") 
+    },
 
   ]
 })

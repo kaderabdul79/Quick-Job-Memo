@@ -55,7 +55,7 @@ export default function useAuth() {
 
   return {
     user,
-    handleLogin,
+    // handleLogin,
     fetchUser,
     handleLogout,
   };
