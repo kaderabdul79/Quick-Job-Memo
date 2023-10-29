@@ -17,13 +17,34 @@
               <v-row>{{ jobmemo }}
                 <v-col tags="v-form" cols="12">
                     <v-row>
-                    <v-col cols="12" sm="6" md="6"><v-text-field v-model="jobmemo.job_title" label="Job Title*"></v-text-field></v-col>
-                    <v-col cols="12" sm="6" md="6"><v-text-field v-model="jobmemo.deadline" label="Deadline" type="date"></v-text-field></v-col>
-                    <v-col cols="12" sm="6" md="6"><v-text-field v-model="jobmemo.experience" label="location"></v-text-field></v-col>
-                    <v-col cols="12" sm="6" md="6"><v-select label="Tech Stack" :items="jobmemo.tech_stacks" v-model="jobmemo.tech_stack"></v-select></v-col>
-                    <v-col cols="12" sm="4" md="4"><v-text-field v-model="jobmemo.location" label="Location"></v-text-field></v-col>
-                    <v-col cols="12" sm="4" md="4"><v-checkbox v-model="jobmemo.interview_called" label="Interview called"></v-checkbox></v-col>
-                    <v-col cols="12" sm="4" md="4"><v-checkbox v-model="jobmemo.interview_attended" label="Interview attended"></v-checkbox></v-col>
+                    <v-col cols="12" sm="6" md="6">
+                        <v-text-field v-model="jobmemo.job_title" label="Job Title*"></v-text-field>
+                        <div class="text-subtitle-2 text-red" v-if="jobmemo.errors.has('job_title')" v-html="jobmemo.errors.get('job_title')" />
+                    </v-col>
+                    <v-col cols="12" sm="6" md="6">
+                        <v-text-field v-model="jobmemo.deadline" label="Deadline" type="date"></v-text-field>
+                        <div class="text-subtitle-2 text-red" v-if="jobmemo.errors.has('deadline')" v-html="jobmemo.errors.get('deadline')" />
+                    </v-col>
+                    <v-col cols="12" sm="6" md="6">
+                        <v-text-field v-model="jobmemo.location" label="location"></v-text-field>
+                        <div class="text-subtitle-2 text-red" v-if="jobmemo.errors.has('location')" v-html="jobmemo.errors.get('location')" />
+                    </v-col>
+                    <v-col cols="12" sm="6" md="6">
+                        <v-select label="Tech Stack" :items="jobmemo.tech_stacks" v-model="jobmemo.tech_stack"></v-select>
+                        <div class="text-subtitle-2 text-red" v-if="jobmemo.errors.has('tech_stacks')" v-html="jobmemo.errors.get('tech_stacks')" />
+                    </v-col>
+                    <v-col cols="12" sm="4" md="4">
+                        <v-text-field v-model="jobmemo.experience" label="Experience"></v-text-field>
+                        <div class="text-subtitle-2 text-red" v-if="jobmemo.errors.has('experience')" v-html="jobmemo.errors.get('experience')" />
+                    </v-col>
+                    <v-col cols="12" sm="4" md="4">
+                        <v-checkbox v-model="jobmemo.interview_called" label="Interview called"></v-checkbox>
+                        <div class="text-subtitle-2 text-red" v-if="jobmemo.errors.has('interview_called')" v-html="jobmemo.errors.get('interview_called')" />
+                    </v-col>
+                    <v-col cols="12" sm="4" md="4">
+                        <v-checkbox v-model="jobmemo.interview_attended" label="Interview attended"></v-checkbox>
+                        <div class="text-subtitle-2 text-red" v-if="jobmemo.errors.has('interview_attended')" v-html="jobmemo.errors.get('interview_attended')" />
+                    </v-col>
                 </v-row>
                 </v-col>
               </v-row>
@@ -42,6 +63,8 @@
 <script setup>
 import { ref } from 'vue';
 const dialog = ref(false);
+import Swal from 'sweetalert2';
+
 // 
 import Form from 'vform'
 // 
@@ -72,10 +95,12 @@ function addNewJobMemo() {
     })
         .then(response => {
             console.log(response.data);
+            Swal.fire({ title: 'Job memo created successfully!', icon: 'success', confirmButtonText: 'OK',timer: 2000});
             dialog.value = false
         })
         .catch(error => {
-            jobmemo.value.errors.errors = error.response.data.errors;
+            jobmemo.value.errors.errors = error.response?.data?.errors;
+            // Swal.fire({position: 'top-end',icon: 'error',title: error.response?.data?.errors?.message,timer: 2000});
             console.error(error);
         });
 } 
