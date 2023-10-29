@@ -9,12 +9,13 @@
           </v-btn>
         </template>
         <v-card>
-          <v-card-title>
+          <v-card-title class="d-flex justify-space-between">
             <span class="text-h5">Add a Job Memo</span>
+            <v-btn variant="text" @click="closeDialog"><v-icon>mdi mdi-window-close</v-icon></v-btn>
           </v-card-title>
           <v-card-text>
             <v-container>
-              <v-row>{{ jobmemo }}
+              <v-row>
                 <v-col tags="v-form" cols="12">
                     <v-row>
                     <v-col cols="12" sm="6" md="6">
@@ -64,10 +65,7 @@
 import { ref } from 'vue';
 const dialog = ref(false);
 import Swal from 'sweetalert2';
-
-// 
 import Form from 'vform'
-// 
 import axios from 'axios'
 axios.defaults.baseURL = "http://127.0.0.1:8000/api/"
 const jobmemo = ref(new Form(
@@ -83,7 +81,7 @@ const jobmemo = ref(new Form(
     }
 ));
 function addNewJobMemo() { 
-    // 
+    // send request with data
     axios.post('job-memos',     {
         job_title: jobmemo.value.job_title,
         deadline: jobmemo.value.deadline,
@@ -95,8 +93,8 @@ function addNewJobMemo() {
     })
         .then(response => {
             console.log(response.data);
-            Swal.fire({ title: 'Job memo created successfully!', icon: 'success', confirmButtonText: 'OK',timer: 2000});
             dialog.value = false
+            Swal.fire({ title: 'Job memo created successfully!', icon: 'success', confirmButtonText: 'OK',timer: 2000});
         })
         .catch(error => {
             jobmemo.value.errors.errors = error.response?.data?.errors;
@@ -106,6 +104,9 @@ function addNewJobMemo() {
 } 
 function resetData(){
     return jobmemo.value = {}
+}
+function closeDialog(){
+    dialog.value = false
 }
 </script>
 
