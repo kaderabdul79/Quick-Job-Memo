@@ -2,10 +2,13 @@
     <div id="jobmemos">  
         <v-container fluid>
             <v-row>
-                <v-col cols="12" md="12" xs="6">
+                <div v-if="isLoading"  class="loading-spinner">
+                    <v-progress-circular class="" indeterminate color="primary" :size="80" :width="5"></v-progress-circular>
+                </div>
+                <v-col v-else cols="12" md="12" xs="6">
                     <v-sheet class="d-flex justify-space-between mb-2">
                         <h2 class="">List of Job Memos</h2>
-                        <div><v-btn :to="{name: 'createJobMemo'}" color="#00ACC1" class="">Add New</v-btn></div>
+                        <div><v-btn color="#00ACC1">Add New</v-btn></div>
                     </v-sheet>
                     <v-table
                     fixed-header
@@ -58,7 +61,7 @@
                         <td>{{ jobmemo.interview_called }}</td>
                         <td class="d-flex">
                             <v-btn class="mr-1"><v-icon>mdi mdi-note-edit-outline</v-icon></v-btn> 
-                            <v-btn color="red-darken-1"><v-icon>mdi mdi-delete-outline</v-icon></v-btn> 
+                            <v-btn @click="deleteJobMemo(jobmemo.id)" color="red-darken-1"><v-icon>mdi mdi-delete-outline</v-icon></v-btn> 
                         </td>
                     </tr>
                     </tbody>
@@ -73,24 +76,50 @@
 import { ref,onMounted } from 'vue';
 import axios from 'axios'
 axios.defaults.baseURL = "http://127.0.0.1:8000/api/"
+import Swal from 'sweetalert2';
+import Create from '@/views/jobMemo/Create.vue';
 const jobmemos = ref([])         
+const isLoading = ref(true)   
 
-    function getAllJobMemos(){
-        axios.get('job-memos')
-        .then(response => {
-            console.log(response.data.data);
-            jobmemos.value = response.data?.data
-        } )
-        .catch(error => {
-            console.error(error);
-        });
-    }
-    onMounted(()=>{
+function getAllJobMemos(){
+    axios.get('job-memos')
+    .then(response => {
+        console.log(response.data.data);
+        jobmemos.value = response.data?.data
+        isLoading.value = false
+    } )
+    .catch(error => {
+        console.error(error);
+    });
+}
+
+onMounted(()=>{
+    getAllJobMemos()
+})
+    
+// delete a JobMemo
+function deleteJobMemo(id){
+    axios.delete('job-memos/'+id)
+    .then(response => {
+        Swal.fire({ title: 'Job memo deleted!', icon: 'success', confirmButtonText: 'OK',timer: 2000});
         getAllJobMemos()
-    })
-
+        console.log(response);
+        })
+    .catch(error => {
+        console.error(error);
+    });
+}
 </script>
 
-<style scoped>
-
+<style>
+.loading-spinner {
+  position: fixed;
+  top: 0;
+  left: 100px;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 </style>
