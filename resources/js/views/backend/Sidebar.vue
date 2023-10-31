@@ -24,6 +24,7 @@
           :value="item"
           active-class="border"
           :ripple="false"
+          to="/jobmemos"
         >
           <template v-slot:prepend>
             <v-icon :icon="item.icon"></v-icon>
@@ -32,31 +33,6 @@
           <v-list-item-title v-text="item.text"></v-list-item-title>
         </v-list-item>
       </v-list>
-      <v-row align="center" class="spacer ml-16 mt-4" no-gutters>
-        <v-col cols="4" sm="2" md="1">
-          <v-avatar size="36px">
-            <v-img alt="Avatar" src="1.jpg"></v-img>
-          </v-avatar>
-        </v-col>
-        <v-col cols="4" sm="2" md="1">
-          <v-avatar size="36px">
-            <v-img alt="Avatar" src="2.jpg"></v-img>
-          </v-avatar>
-        </v-col>
-        <v-col cols="4" sm="2" md="1">
-          <v-avatar size="36px">
-            <v-img alt="Avatar" src="3.jpg"></v-img>
-          </v-avatar>
-        </v-col>
-        <v-col cols="4" sm="2" md="1">
-          <v-avatar size="36px">
-            <v-img alt="Avatar" src="4.jpg"></v-img>
-          </v-avatar>
-        </v-col>
-      </v-row>
-      <div style="position: relative; z-index: 9999" class="mt-2">
-        <v-img src="map.png" contain max-height="100"></v-img>
-      </div>
     </v-navigation-drawer>
   </template>
   
