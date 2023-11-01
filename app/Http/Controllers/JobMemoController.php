@@ -77,7 +77,7 @@ class JobMemoController extends Controller
         }    
     }
 
-    public function update(Request $request, $id)
+    public function update(JobMemoRequest $request, JobMemo $jobMemo)
     {
         try {  
             $user = User::where('email', 'kader@gmail.com')->first();
@@ -85,19 +85,9 @@ class JobMemoController extends Controller
                 $response = ResponseHelper::errorResponse("User not found.", 404);
                 return response()->json($response);
             }
-            $jobMemos = jobMemo::find($id);
-            // Update job memo
-            $jobMemos->update([
-                'user_id' => $user->id,
-                'job_title' => $request->input('job_title'),
-                'deadline' => $request->input('deadline'),
-                'experience' => $request->input('experience'),
-                'tech_stack' => $request->input('tech_stack'),
-                'location' => $request->input('location'),
-                'interview_called' => $request->input('interview_called'),
-                'interview_attended' => $request->input('interview_attended'),
-            ]);
-            $response = ResponseHelper::successResponse("Job memo updated successfully!", $data = $jobMemos);
+
+            $jobMemo->update($request->all());
+            $response = ResponseHelper::successResponse("Job memo updated successfully!", $data = $jobMemo);
             return response()->json($response);
         } catch (\Exception $e) {
             $response = ResponseHelper::errorResponse("An error occurred while update job memo.", 500);

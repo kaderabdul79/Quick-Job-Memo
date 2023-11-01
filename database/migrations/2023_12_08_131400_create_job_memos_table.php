@@ -18,7 +18,9 @@ return new class extends Migration
             $table->date('deadline')->nullable();;
             $table->string('experience')->nullable();
             $table->string('tech_stack')->nullable();
-            $table->string('location')->nullable();;
+            $table->string('location')->nullable();
+            $table->boolean('interview_called')->default(0);
+            $table->boolean('interview_attended')->default(0);
             $table->timestamps();
         });
     }

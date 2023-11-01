@@ -34,6 +34,12 @@ const router = createRouter({
           name: 'createJobMemo',
           component: () => import("../views/backend/jobMemo/Create.vue") 
         },
+        { 
+          path: "/jobmemos/:id/edit", 
+          name: 'editJobMemo',
+          props: true,
+          component: () => import("../views/backend/jobMemo/Edit.vue") 
+        },
       ]
     }
   ]

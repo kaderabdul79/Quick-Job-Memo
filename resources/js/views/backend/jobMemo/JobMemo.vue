@@ -60,7 +60,7 @@
                         <td>{{ jobmemo.interview_attended }}</td>
                         <td>{{ jobmemo.interview_called }}</td>
                         <td class="d-flex">
-                            <v-btn class="mr-1"><v-icon>mdi mdi-note-edit-outline</v-icon></v-btn> 
+                            <v-btn :to="{name: 'editJobMemo', params: {id: jobmemo.id}}" class="mr-1"><v-icon>mdi mdi-note-edit-outline</v-icon></v-btn> 
                             <v-btn @click="deleteJobMemo(jobmemo.id)" color="red-darken-1"><v-icon>mdi mdi-delete-outline</v-icon></v-btn> 
                         </td>
                     </tr>
