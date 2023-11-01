@@ -14,11 +14,6 @@ const router = createRouter({
       name: 'login',
       component: () => import("../views/Login.vue") 
     },
-    { 
-      path: "/jobmemo/create", 
-      name: 'createJobMemo',
-      component: () => import("../views/jobMemo/Create.vue") 
-    },
     {
       path: "/dashboard",
       name: "dashboard",
@@ -33,6 +28,11 @@ const router = createRouter({
           path: "/jobmemos", 
           name: 'jobmemos',
           component: () => import("../views/backend/jobMemo/JobMemo.vue") 
+        },
+        { 
+          path: "/jobmemos/create", 
+          name: 'createJobMemo',
+          component: () => import("../views/backend/jobMemo/Create.vue") 
         },
       ]
     }

@@ -2,13 +2,13 @@
     <div id="jobmemos">  
         <v-container fluid>
             <v-row>
-                <div v-if="isLoading"  class="loading-spinner">
-                    <v-progress-circular class="" indeterminate color="primary" :size="80" :width="5"></v-progress-circular>
+                <div v-if="isLoading" class="loading-spinner">
+                    <v-progress-circular  color="#00ACC1" indeterminate :size="80" :width="5"></v-progress-circular>
                 </div>
                 <v-col v-else cols="12" md="12" xs="6">
                     <v-sheet class="d-flex justify-space-between mb-2">
                         <h2 class="">List of Job Memos</h2>
-                        <div><v-btn color="#00ACC1">Add New</v-btn></div>
+                        <div><v-btn :to="{name: 'createJobMemo'}" color="#00ACC1">Add New</v-btn></div>
                     </v-sheet>
                     <v-table
                     fixed-header
