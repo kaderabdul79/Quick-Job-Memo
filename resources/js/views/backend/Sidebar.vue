@@ -1,5 +1,5 @@
 <template>
-    <v-navigation-drawer v-model="drawer" color="#00ACC1" class="rounded-e-xl">
+    <v-navigation-drawer v-model="drawer" color="#00ACC1#00ACC1" class="rounded-e-xl">
       <v-sheet color="#00ACC1" class="pa-4 rounded-te-xl text-center">
         <v-progress-circular
           model-value="100"
@@ -24,7 +24,7 @@
           :value="item"
           active-class="border"
           :ripple="false"
-          to="/jobmemos"
+          :to="{name: item.name}"
         >
           <template v-slot:prepend>
             <v-icon :icon="item.icon"></v-icon>
@@ -39,12 +39,12 @@
   <script setup>
   import { ref } from "vue";
   const links = [
-    { text: "DASHBOARD", icon: "mdi mdi-home-outline" },
-    { text: "Manage Job Memo", icon: "mdi mdi-controller-classic-outline" },
-    { text: "Add Job Memo", icon: "mdi mdi-file-plus" },
-    { text: "REPORTS", icon: "mdi mdi-file-chart-outline" },
-    { text: "STATISTICS", icon: "mdi mdi-chart-pie" },
-    { text: "SETTINGS", icon: "mdi mdi-cog-outline" },
+    { text: "DASHBOARD", icon: "mdi mdi-home-outline", name: "" },
+    { text: "Manage Job Memo", icon: "mdi mdi-controller-classic-outline", name: "jobmemos" },
+    { text: "Add Job Memo", icon: "mdi mdi-file-plus", name: "createJobMemo" },
+    { text: "REPORTS", icon: "mdi mdi-file-chart-outline", name: "" },
+    { text: "STATISTICS", icon: "mdi mdi-chart-pie", name: "" },
+    { text: "SETTINGS", icon: "mdi mdi-cog-outline", name: "" },
   ];
   
   const drawer = ref(null);

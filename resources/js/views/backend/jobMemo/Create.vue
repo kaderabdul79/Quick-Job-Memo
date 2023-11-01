@@ -35,7 +35,7 @@
                     </v-col>
                 </v-row>
                 </v-col>
-                <v-btn @click="addNewJobMemo" type="submit" variant="text" class="bg-teal px-12 ml-4">Submit</v-btn>
+                <v-btn @click="addNewJobMemo" type="submit" variant="text" class="px-12 ml-4" style="background-color: #00ACC1;">Submit</v-btn>
               </v-row>
         </v-container>    
     </div>

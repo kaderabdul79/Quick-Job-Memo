@@ -1,7 +1,7 @@
 <template>
     <div class="edit-jobmemo">
         <v-container fluid>
-            <v-row>{{ jobmemo }}
+            <v-row>
                 <div v-if="isLoading" class="loading-spinner">
                     <v-progress-circular  color="#00ACC1" indeterminate :size="80" :width="5"></v-progress-circular>
                 </div>

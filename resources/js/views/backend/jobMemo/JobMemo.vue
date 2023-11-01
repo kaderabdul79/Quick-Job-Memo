@@ -35,11 +35,10 @@
                             Location
                         </th>
                         <th class="text-center">
-                            Interview Attended
-
+                            Interview Called
                         </th>
                         <th class="text-center">
-                            Interview Called
+                            Interview Attended
                         </th>
                         <th class="text-center">
                             Action
@@ -57,8 +56,8 @@
                         <td>{{ jobmemo.tech_stack }}</td>
                         <td>{{ jobmemo.experience }}</td>
                         <td>{{ jobmemo.location }}</td>
-                        <td>{{ jobmemo.interview_attended }}</td>
                         <td>{{ jobmemo.interview_called }}</td>
+                        <td>{{ jobmemo.interview_attended }}</td>
                         <td class="d-flex">
                             <v-btn :to="{name: 'editJobMemo', params: {id: jobmemo.id}}" class="mr-1"><v-icon>mdi mdi-note-edit-outline</v-icon></v-btn> 
                             <v-btn @click="deleteJobMemo(jobmemo.id)" color="red-darken-1"><v-icon>mdi mdi-delete-outline</v-icon></v-btn> 
@@ -77,7 +76,7 @@ import { ref,onMounted } from 'vue';
 import axios from 'axios'
 axios.defaults.baseURL = "http://127.0.0.1:8000/api/"
 import Swal from 'sweetalert2';
-import Create from '@/views/jobMemo/Create.vue';
+// import Create from '@/views/jobMemo/Create.vue';
 const jobmemos = ref([])         
 const isLoading = ref(true)   
 
