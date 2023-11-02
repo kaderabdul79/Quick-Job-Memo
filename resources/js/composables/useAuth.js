@@ -50,7 +50,14 @@ export default function useAuth() {
         user.value = null;
         // Remove token from local storage
         localStorage.removeItem('token');
-        router.push({ name: 'login' });
+        // router.push({ name: 'login' })
+        // .catch(err => console.error(err));
+        new Promise(resolve => {
+            setTimeout(resolve, 0);
+          }).then(() => {
+            // Redirect to the login page
+            router.push({ name: 'login' }).catch(err => console.error(err));
+          });
     };
 
   return {

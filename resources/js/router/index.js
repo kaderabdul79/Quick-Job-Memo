@@ -17,7 +17,11 @@ const router = createRouter({
     { 
       path: "/login", 
       name: 'login',
-      component: () => import("../views/Login.vue") 
+      component: () => import("../views/Login.vue"),
+      // if user already login and mistakenly request for login redirect to dashboard
+      beforeEnter: (to, from, next) => {
+        isAuthenticated() ? next({ name: 'dashboard' }) : next();
+      },
     },
     {
       path: "/dashboard",

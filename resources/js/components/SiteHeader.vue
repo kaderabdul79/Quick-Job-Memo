@@ -33,9 +33,8 @@ import { ref, onMounted, defineEmits } from 'vue';
 import axios from 'axios';
 axios.defaults.baseURL = "http://127.0.0.1:8000/api/";
 import useAuth from '@/composables/useAuth.js'
-import Create from '../views/jobMemo/Create.vue';
 const {  user,fetchUser, handleLogout} = useAuth()
-// console.log(useAuth());
+import Create from '../views/jobMemo/Create.vue';
 onMounted(()=>{
   fetchUser()
 })

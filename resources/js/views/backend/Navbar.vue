@@ -31,6 +31,7 @@
                             prepend-icon="mdi mdi-logout"
                             title="Logout"
                             value="Logout"
+                            @click="handleLogout"
                         ></v-list-item>
                     </v-list>
                 </v-menu>
@@ -39,7 +40,8 @@
 </template>
 
 <script setup>
-
+import useAuth from '@/composables/useAuth.js'
+const {  user,fetchUser, handleLogout} = useAuth()
 </script>
 
 <style scoped>
