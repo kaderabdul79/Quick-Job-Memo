@@ -1,6 +1,6 @@
 <template>
     <v-navigation-drawer v-model="drawer" color="#00ACC1#00ACC1" class="rounded-e-xl">
-      <v-sheet color="#00ACC1" class="pa-4 rounded-te-xl text-center">
+      <v-sheet color="#00ACC1" class="pa-4 rounded-te-xl text-center" v-if="user">
         <v-progress-circular
           model-value="100"
           color="primary"
@@ -14,7 +14,7 @@
         </v-progress-circular>
   
         <div class="mt-4">Quick Job Memo</div>
-        <span class="mb-6 text-caption">jobmemo@gmail.com</span>
+        <span class="mb-6 text-caption">{{ user.email }}</span>
       </v-sheet>
   
       <v-list>
@@ -37,8 +37,13 @@
   </template>
   
   <script setup>
-  import { ref } from "vue";
-  const links = [
+  import { ref,onMounted } from "vue";
+const isLoading = ref(true)   
+
+import useAuth from '@/composables/useAuth.js'
+const {  user,fetchUser, handleLogout} = useAuth()
+
+const links = [
     { text: "DASHBOARD", icon: "mdi mdi-home-outline", name: "" },
     { text: "Manage Job Memo", icon: "mdi mdi-controller-classic-outline", name: "jobmemos" },
     { text: "Add Job Memo", icon: "mdi mdi-file-plus", name: "createJobMemo" },
@@ -46,17 +51,12 @@
     { text: "STATISTICS", icon: "mdi mdi-chart-pie", name: "" },
     { text: "SETTINGS", icon: "mdi mdi-cog-outline", name: "" },
   ];
-  
-  const drawer = ref(null);
+ 
+onMounted(()=>{
+  fetchUser()
+}) 
+const drawer = ref(null);
   </script>
   
-  <script>
-  export default {
-    data: () => ({
-      cards: ["Today", "Yesterday"],
-      drawer: null,
-    }),
-  };
-  </script>
   <style scoped></style>
   
