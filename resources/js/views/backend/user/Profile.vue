@@ -39,7 +39,17 @@
                 </div>
                 </v-col>
                 <v-col cols="6" md="6" xs="12">
-                  Update profile
+                  <v-sheet class="pa-4 border rounded-xl text-center">
+                    <div><v-sheet class="text-h5 mb-2">Update profile</v-sheet></div>
+                    <v-form>
+                      <v-text-field label="Name*"></v-text-field>
+                      <v-text-field label="Email*"></v-text-field>
+                      <v-text-field label="Designation"></v-text-field>
+                      <v-file-input label="Upload Profile Picture"></v-file-input>
+                      <v-textarea clearable label="About Me"></v-textarea>
+                      <v-btn block color="#00ACC1 ">Update</v-btn>
+                    </v-form>
+                  </v-sheet>
                 </v-col>
             </v-row>
         </v-container>

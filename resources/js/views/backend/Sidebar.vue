@@ -1,5 +1,5 @@
 <template>
-    <v-navigation-drawer v-model="drawer" color="#00ACC1#00ACC1" class="rounded-e-xl">
+    <v-navigation-drawer v-model="drawer" color="#00ACC1" class="rounded-e-xl">
       <v-sheet color="#00ACC1" class="pa-4 rounded-te-xl text-center" v-if="user">
         <v-progress-circular
           model-value="100"
