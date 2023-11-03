@@ -57,6 +57,21 @@ const router = createRouter({
           props: true,
           component: () => import("../views/backend/jobMemo/Edit.vue") 
         },
+        // user
+        { 
+          path: "user", 
+          name: 'user',
+          component: () => import("../views/backend/user/User.vue") ,
+          redirect: {name: 'profile'},
+          children: [
+            {
+              path: "profile", 
+              name: 'profile',
+              component: () => import("../views/backend/user/Profile.vue") ,
+            }
+          ],
+        },
+
       ]
     }
   ]

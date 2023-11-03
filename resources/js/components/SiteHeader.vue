@@ -29,7 +29,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, defineEmits } from 'vue';
+import { ref, onMounted  } from 'vue';
 import axios from 'axios';
 axios.defaults.baseURL = "http://127.0.0.1:8000/api/";
 import useAuth from '@/composables/useAuth.js'
