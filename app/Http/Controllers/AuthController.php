@@ -85,4 +85,33 @@ class AuthController extends Controller
                 return response()->json($response);
             }
     }
+
+    // update user profile information
+    public function updateProfile(Request $request, $id){
+        // $request->validate([
+        //     'name' => 'required|string',
+        //     'email' => 'required|email|unique:users,email,' . $id,
+        //     'designation' => 'nullable|string',
+        //     'picture' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        //     'about' => 'nullable|string',
+        // ]);
+ return $request->input('name');
+    
+        $user = User::findOrFail($id);
+        $user->name = $request->input('name');
+        $user->email = $request->input('email');
+        $user->designation = $request->input('designation');
+        $user->about = $request->input('about');
+
+        // Handle file upload
+        if ($request->hasFile('picture')) {
+            $file = $request->file('picture');
+            $path = $file->store('profile_pictures', 'public');
+            $user->picture = $path;
+        }
+    
+        $user->save();
+        $response = ResponseHelper::successResponse('User information updated successfully', $data = $user);
+        return response()->json($response);
+    }
 }

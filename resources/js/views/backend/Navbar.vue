@@ -26,6 +26,7 @@
                             prepend-icon="mdi-account"
                             title="Users Profile"
                             value="users"
+                            :to="{name: 'profile'}"
                         ></v-list-item>
                         <v-list-item
                             prepend-icon="mdi mdi-logout"

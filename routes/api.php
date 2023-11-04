@@ -28,5 +28,11 @@ Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login'])->name('login');
 Route::middleware('auth:sanctum')->get('/user', [AuthController::class, 'getUser']);
 Route::middleware('auth:sanctum')->delete('/logout', [AuthController::class, 'logout']);
+// Route::middleware('auth:sanctum')->put('/user/{id}/update', [AuthController::class, 'updateProfile']);
+Route::put('/user/{id}/update', [AuthController::class, 'updateProfile']);
+// Route::put('/user/{id}/update', function (Request $req){
+// return $req->about;
+// });
+
 // 
 Route::resource('job-memos', JobMemoController::class);
