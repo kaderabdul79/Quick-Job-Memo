@@ -95,7 +95,7 @@ class AuthController extends Controller
         //     'picture' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         //     'about' => 'nullable|string',
         // ]);
- return $request->input('name');
+//  return $request->input('name');
     
         $user = User::findOrFail($id);
         $user->name = $request->input('name');
@@ -105,11 +105,11 @@ class AuthController extends Controller
 
         // Handle file upload
         if ($request->hasFile('picture')) {
+            return $request->picture;
             $file = $request->file('picture');
             $path = $file->store('profile_pictures', 'public');
             $user->picture = $path;
         }
-    
         $user->save();
         $response = ResponseHelper::successResponse('User information updated successfully', $data = $user);
         return response()->json($response);

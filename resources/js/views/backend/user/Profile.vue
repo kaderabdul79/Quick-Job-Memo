@@ -16,10 +16,10 @@
                       </v-avatar>
                     </v-progress-circular>
   
-                    <div class="mt-4">{{ user.name }}</div>
-                    <div class="">{{ user.email }}</div>
-                    <span class="mb-6 text-caption bg-blue pa-1">Software Engineer</span>
-                    <div class="text-subtitle1 px-4">Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid quaerat excepturi et laborum ea non impedit iste eum aspernatur saepe.</div>
+                    <div class="mt-4">{{ user?.name }}</div>
+                    <div class="">{{ user?.email }}</div>
+                    <span class="mb-6 text-caption bg-blue pa-1">{{ user?.designation ? user.designation : 'Ex: Engineer' }}</span>
+                    <div class="text-subtitle1 px-4">{{ user?.about ? user.about : 'Ex: A user of Job Memo' }}</div>
                     <v-card-title>Job Memo Overview</v-card-title>
 
                     <div class="px-4">
@@ -61,6 +61,7 @@ import { ref,onMounted } from "vue";
 const isLoading = ref(true)   
 import useAuth from '@/composables/useAuth.js'
 const { user,fetchUser, handleLogout} = useAuth()
+import Swal from 'sweetalert2';
 import axios from 'axios'
 axios.defaults.baseURL = "http://127.0.0.1:8000/api/"
 onMounted(()=>{
@@ -108,15 +109,15 @@ import Form from 'vform'
 // }
 
 const userData = ref({
-      name: user ? user.value.name : "",
-      email: user ? user.value.email : "",
+      name: user ? user.value?.name : "",
+      email: user ? user.value?.email : "",
       designation: "",
       about: "",
       picture: null,
     });
 
     const handleFileChange = (event) => {
-      userData.value.picture = event.target.files[0];
+      userData.value.picture = event.target.files[0].name;
       console.log("Selected picture:", userData.value.picture);
     };
 
@@ -139,22 +140,23 @@ const userData = ref({
 
     const updateProfile = () => {
       // console.log("Selected 2:", userData.value.picture);
-      let formData = new FormData();
-      formData.append('picture', userData.value.picture);
-      formData.append('name',userData.value.about);
-      console.log(formData);
-      axios.put('user/' + user.value?.id + '/update',formData,
-      // {
-      //   name: userData.value.name,
-      //   email: userData.value.email,
-      //   designation: userData.value.designation,
-      //   about: userData.value.about,
-      //   picture: userData.value.picture,
-      // }
+      // let formData = new FormData();
+      // formData.append('picture', userData.value.picture);
+      // formData.append('about',userData.value.about);
+      // console.log(formData);
+      axios.put('user/' + user.value?.id + '/update',
+      {
+        name: userData.value.name,
+        email: userData.value.email,
+        designation: userData.value.designation,
+        about: userData.value.about,
+        picture: userData.value.picture,
+      }
         // { headers: {'Content-Type': 'multipart/form-data', }}
       )
         .then(response => {
           console.log(response.data);
+          Swal.fire({ title: 'Profile has been updated!', icon: 'success', confirmButtonText: 'OK',timer: 2000});
         })
         .catch(error => {
           console.error("Error updating profile:", error);
