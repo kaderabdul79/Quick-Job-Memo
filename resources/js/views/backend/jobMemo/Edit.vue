@@ -55,7 +55,7 @@ function getaJobMemos(){
     .then(response => {
         // console.log(response.data?.data);
         jobmemo.value.fill(response.data?.data)
-        isLoading.value = 
+        isLoading.value = false
         // console.log(jobmemo);
     } )
     .catch(error => {

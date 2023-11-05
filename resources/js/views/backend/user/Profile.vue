@@ -24,13 +24,13 @@
 
                     <div class="px-4">
                         <v-chip-group v-model="selection">
-                            <v-chip>20 Available Job</v-chip>
+                            <v-chip>{{ jobMemoOverview.totalJobMemos }} Available Job</v-chip>
 
-                            <v-chip>Called for Interview 17</v-chip>
+                            <v-chip>Got Interview call {{ jobMemoOverview.interviewCalled }}</v-chip>
 
-                            <v-chip>Interview Attended 14</v-chip>
+                            <v-chip>Interview Attended {{ jobMemoOverview.interviewAttended }}</v-chip>
 
-                            <v-chip>Expire 2</v-chip>
+                            <v-chip>Expired 1</v-chip>
                         </v-chip-group>
                     </div>
                   </v-sheet>
@@ -62,52 +62,25 @@ const isLoading = ref(true)
 import useAuth from '@/composables/useAuth.js'
 const { user,fetchUser, handleLogout} = useAuth()
 import Swal from 'sweetalert2';
+import Form from 'vform'
 import axios from 'axios'
 axios.defaults.baseURL = "http://127.0.0.1:8000/api/"
+const jobMemoOverview = ref({})
 onMounted(()=>{
   fetchUser()
+  jobmemoOverview()
 })
-import Form from 'vform'
-// const userData = ref(new Form(
-//     {
-//         name:  user ? user.value.name : "",
-//         email: user ? user.value.email : "",
-//         designation: "",
-//         about: "",
-//         picture: null,
-//     }
-// ));
-
-// const handleFileChange = (event) => {
-//   userData.value.picture = event.target.files[0];
-//   console.log("82",userData.value);
-// };
-// // 
-// // Function to build FormData object
-// function buildFormData() {
-//   const formData = new FormData();
-// // console.log(userData.value.name);
-//   // Append user data
-//   formData.append('name', userData.value.name);
-//   formData.append('email', userData.value.email);
-//   formData.append('designation', userData.value.designation);
-//   formData.append('about', userData.value.about);
-//   formData.append('picture', userData.value.picture);
-//   console.log("99",formData);
-//   return formData;
-// }
-// // 
-// function updateProfile(){
-//     console.log(buildFormData(userData,"104"));console.log(buildFormData(userData.value,"104"));
-//     axios.put('user/'+user.value?.id+'/update', buildFormData())
-//         .then(response => {
-//             console.log(response);
-//         })
-//         .catch(error => {
-//             console.error(error);
-//         });
-// }
-
+// jobMemoOverview
+function jobmemoOverview(){
+  axios.get('jobMemoOverview')
+    .then(response => {
+      console.log(response.data)
+      jobMemoOverview.value = response.data?.data
+    })
+    .catch(error => {
+      console.error("Error", error);
+    });
+}
 const userData = ref({
       name: user ? user.value?.name : "",
       email: user ? user.value?.email : "",

@@ -95,7 +95,7 @@ class AuthController extends Controller
         //     'picture' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         //     'about' => 'nullable|string',
         // ]);
-//  return $request->input('name');
+        //  return $request->input('name');
     
         $user = User::findOrFail($id);
         $user->name = $request->input('name');
@@ -113,5 +113,37 @@ class AuthController extends Controller
         $user->save();
         $response = ResponseHelper::successResponse('User information updated successfully', $data = $user);
         return response()->json($response);
+    }
+
+    // jobmemo overview
+    public function jobMemoOverview(Request $request)
+    {
+        try {
+            $user = $request->user();
+            if ($user) {
+            // $jobMemos = $user->load('jobMemos');
+            // 
+            $jobMemos = $user->jobMemos;
+            $totalJobMemos = count($jobMemos);
+            $interviewCalled = $jobMemos->where('interview_called', 1)->count();
+            $interviewAttended = $jobMemos->where('interview_attended', 1)->count();
+
+            $response = [
+                'user' => $user,
+                'jobMemos' => $jobMemos,
+                'totalJobMemos' => $totalJobMemos,
+                'interviewAttended' => $interviewAttended,
+                'interviewCalled' => $interviewCalled,
+            ];
+
+            // return $interviewCalled;
+            $response = ResponseHelper::successResponse('get an overview', $data = $response);
+            return response()->json($response);
+            } else {
+                return response()->json("User not authenticated.", 401);
+            }
+        } catch (\Exception $e) {
+            return response()->json("Unable to fetch user data.", 500);
+        }
     }
 }
