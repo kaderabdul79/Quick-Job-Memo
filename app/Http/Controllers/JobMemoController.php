@@ -37,11 +37,9 @@ class JobMemoController extends Controller
 
     public function store(JobMemoRequest $request)
     {  
-// return $request;
-// dd($request->all()); 
         try {
 
-            $user = User::where('email', 'kader@gmail.com')->first();
+            $user = $request->user();
             if (!$user) {
                 $response = ResponseHelper::errorResponse("User not found.", 404);
                 return response()->json($response);
@@ -80,7 +78,7 @@ class JobMemoController extends Controller
     public function update(JobMemoRequest $request, JobMemo $jobMemo)
     {
         try {  
-            $user = User::where('email', 'kader@gmail.com')->first();
+            $user = $request->user();
             if (!$user) {
                 $response = ResponseHelper::errorResponse("User not found.", 404);
                 return response()->json($response);
