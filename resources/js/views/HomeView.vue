@@ -11,11 +11,13 @@
       <p>No user information available.</p>
     </div> -->
 <Sitecarousal />
+<ProcessStep />
 <SiteFooter />
 </v-card>
 </template>
 
 <script setup>
+import ProcessStep from '../components/ProcessStep.vue';
 import SiteFooter from '../components/SiteFooter.vue';
 import SiteHeader from '../components/SiteHeader.vue';
 import Sitecarousal from '../components/sitecarousal.vue';
