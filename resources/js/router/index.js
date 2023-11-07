@@ -14,6 +14,11 @@ const router = createRouter({
       name: 'home',
       component: HomeView
     },
+    // {
+    //   path: '/why-jobmemo',
+    //   name: 'why-jobmemoe',
+    //   component: () => import('../views/WhyCreatedJobMemo.vue'),
+    // },
     { 
       path: "/login", 
       name: 'login',
