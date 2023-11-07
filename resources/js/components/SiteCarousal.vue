@@ -1,26 +1,21 @@
 <template>
     <v-carousel
       cycle
-      height="400"
+      height="500"
       hide-delimiter-background
       show-arrows="hover"
     >
-      <v-carousel-item
-        v-for="(slide, i) in slides"
-        :key="i"
-      >
+      <v-carousel-item  v-for="(slide, i) in slides" :key="i">
         <v-sheet
           :color="colors[i]"
           height="100%"
         >
-          <div class="w-50 mx-auto text-center py-5">
-            <div class="text-h2 pt-5">
-              {{ slide }} Slide
+          <div class="text-center down-below">
+            <div class="text-h3">{{ slide }} </div> <br>
+            <div>
+              <v-btn color="primary mr-2" to="login"> Login </v-btn>
+              <v-btn color="secondary" to="register"> Register </v-btn>
             </div>
-            <div class="text-body1">
-              Lorem ipsum dolor sit, amet consectetur adipisicing elit. .
-            </div>
-            <v-btn> Why I Created Quick Job Memo </v-btn> 
           </div>
         </v-sheet>
       </v-carousel-item>
@@ -37,14 +32,14 @@ const colors = ref([
           'deep-purple accent-4',
         ])
 const slides = ref([
-          'First',
-          'Second',
-          'Third',
-          'Fourth',
-          'Fifth',
+          'Streamlined Job Tracking',
+          'Effortless Application Management',
+          'Stay Informed and Proactive',
         ])        
 </script>
 
 <style scoped>
-
+.down-below{
+  padding-top: 160px;
+}
 </style>

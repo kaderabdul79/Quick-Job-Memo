@@ -23,10 +23,14 @@ const vuetify = createVuetify({
       defaultSet: 'mdi', 
     },
     theme: {
-      // colors: {
-      //   primary: '#ECEFF1',
-      //   secondary: '#FF7043'
-      // }
+      themes: {
+        light: {
+          colors: {
+            primary: '#00ACC1',
+            secondary: '#5CBBF6',
+          },
+        },
+      },
     },
 })
 

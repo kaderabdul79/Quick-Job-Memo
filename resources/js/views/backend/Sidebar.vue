@@ -1,15 +1,15 @@
 <template>
-    <v-navigation-drawer v-model="drawer" color="#00ACC1" class="rounded-e-xl">
-      <v-sheet color="#00ACC1" class="pa-4 rounded-te-xl text-center" v-if="user">
+    <v-navigation-drawer v-model="drawer" color="primary" class="rounded-e-xl">
+      <v-sheet color="primary" class="pa-4 rounded-te-xl text-center" v-if="user">
         <v-progress-circular
           model-value="100"
-          color="primary"
+          color="secondary"
           :size="100"
           :width="2"
           class=""
         >
           <v-avatar size="85">
-            <v-img src="1.jpg" alt="John"></v-img>
+            <v-img alt="Avatar" src="https://avatars0.githubusercontent.com/u/9064066?v=4&s=460"></v-img>
           </v-avatar>
         </v-progress-circular>
   

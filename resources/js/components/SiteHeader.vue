@@ -6,10 +6,9 @@
       <v-spacer></v-spacer>
 
       <v-btn> Why I Created Quick Job Memo</v-btn>   
-      <v-btn>Trac your Jobs </v-btn>   
+      <v-btn>Process of Job Memo</v-btn>   
       <!--  -->
       <div v-if="user">
-          <v-btn> Welcome : {{ user.name}}</v-btn>  
           <v-btn class="bg-primary mr-2" to="/dashboard">Dashboard</v-btn> 
           <v-btn class="bg-primary mr-2">Add New job Memo<Create/><v-icon>mdi mdi-plus</v-icon></v-btn>
           <v-btn  @click="handleLogout" class="bg-primary mr-2">Logout<v-icon>mdi mdi-logout</v-icon>

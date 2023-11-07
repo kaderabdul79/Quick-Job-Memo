@@ -14,11 +14,6 @@ const router = createRouter({
       name: 'home',
       component: HomeView
     },
-    // {
-    //   path: '/why-jobmemo',
-    //   name: 'why-jobmemoe',
-    //   component: () => import('../views/WhyCreatedJobMemo.vue'),
-    // },
     { 
       path: "/login", 
       name: 'login',
@@ -31,6 +26,7 @@ const router = createRouter({
     {
       path: "/dashboard",
       name: "dashboard",
+      redirect: {name: 'dashboardOverview'},
       component: () => import("../views/backend/Dashboard.vue"),
       // if token is available, can access all the children route, if not redirect to login
       beforeEnter: (to, from, next) => {
