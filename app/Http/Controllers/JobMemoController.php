@@ -11,13 +11,20 @@ use Illuminate\Support\Facades\Validator;
 
 class JobMemoController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         try {
-            $jobMemos = JobMemo::all();
+            $user = $request->user();
+            if ($user){
 
-            $response = ResponseHelper::successResponse("Received List of jobMemos!", $data = $jobMemos);
-            return response()->json($response);
+                $jobMemos = $user->jobMemos;
+
+                $response = ResponseHelper::successResponse("Received List of jobMemos!", $data = $jobMemos);
+                return response()->json($response);
+            }
+            else {
+                return response()->json("User not authenticated.", 401);
+            }
         } catch (\Exception $e) {
             $response = ResponseHelper::errorResponse("An error occurred while fetching job memos.", 500);
             return response()->json($response);
