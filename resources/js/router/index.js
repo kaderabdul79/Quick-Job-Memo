@@ -24,6 +24,15 @@ const router = createRouter({
       },
     },
     {
+      path: "/register", 
+      name: 'register',
+      component: () => import("../views/Registration.vue"),
+       // if user already register and mistakenly request for register redirect to dashboard
+      beforeEnter: (to, from, next) => {
+        isAuthenticated() ? next({ name: 'dashboard' }) : next();
+      },
+    },
+    {
       path: "/dashboard",
       name: "dashboard",
       redirect: {name: 'dashboardOverview'},

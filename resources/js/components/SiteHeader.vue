@@ -16,10 +16,10 @@
       </div>   
       <!--  -->
       <div v-else>
-          <v-btn class="bg-primary mr-2" to="/login">
+          <v-btn class="bg-primary mr-2" :to="{name: 'login'}">
           Login<v-icon>mdi mdi-login</v-icon>
         </v-btn>
-        <v-btn class="bg-primary">
+        <v-btn class="bg-primary" :to="{name: 'register'}">
           Register<v-icon>mdi mdi-account-plus-outline</v-icon>
         </v-btn>
       </div>
