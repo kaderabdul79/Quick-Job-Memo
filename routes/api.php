@@ -29,7 +29,7 @@ Route::post('/login', [AuthController::class, 'login'])->name('login');
 Route::middleware('auth:sanctum')->get('/user', [AuthController::class, 'getUser']);
 Route::middleware('auth:sanctum')->delete('/logout', [AuthController::class, 'logout']);
 Route::middleware('auth:sanctum')->put('/user/{id}/update', [AuthController::class, 'updateProfile']);
-Route::get('/jobMemoOverview', [AuthController::class, 'jobMemoOverview']);
+Route::middleware('auth:sanctum')->get('/jobMemoOverview', [AuthController::class, 'jobMemoOverview']);
 // 
 Route::middleware(['auth:sanctum'])->resource('job-memos', JobMemoController::class);
 
