@@ -12,6 +12,7 @@
 <style scoped>
 .title{
     position: relative;
+    margin: 20px 0;
 }
 .botom-line{
     position: absolute;

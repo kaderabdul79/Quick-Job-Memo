@@ -1,7 +1,7 @@
 <template>
     <v-carousel
       cycle
-      height="500"
+      height="600"
       hide-delimiter-background
       show-arrows="hover"
     >
@@ -40,6 +40,6 @@ const slides = ref([
 
 <style scoped>
 .down-below{
-  padding-top: 160px;
+  padding-top: 220px;
 }
 </style>
