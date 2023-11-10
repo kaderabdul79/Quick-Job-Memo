@@ -44,7 +44,7 @@ import useAuth from '@/composables/useAuth.js'
 const {  user,fetchUser, handleLogout} = useAuth()
 
 const links = [
-    { text: "DASHBOARD", icon: "mdi mdi-home-outline", name: "" },
+    { text: "DASHBOARD", icon: "mdi mdi-home-outline", name: "dashboard" },
     { text: "Manage Job Memo", icon: "mdi mdi-controller-classic-outline", name: "jobmemos" },
     { text: "Add Job Memo", icon: "mdi mdi-file-plus", name: "createJobMemo" },
     { text: "STATISTICS", icon: "mdi mdi-chart-pie", name: "jobmemosStatistics" },

@@ -2,6 +2,7 @@
         <v-app-bar class="px-2" :elevation="2" background="#26A69A">
             <div class="my-header w-100 d-flex justify-space-end" background="#26A69A">
             <v-spacer></v-spacer>
+            <div clas="bg-red"><span class="mdi mdi-bell-badge-outline pr-6 text-h4 font-weight-bold"></span></div>
             <div class="profile" v-if="user">
                 <v-avatar size="36px">
                     <v-img :src="user?.picture ? `http://localhost:8000/storage/profile_picture/${user.picture}` : 'https://avatars0.githubusercontent.com/u/9064066?v=4&s=460'" alt="profile picture"></v-img>

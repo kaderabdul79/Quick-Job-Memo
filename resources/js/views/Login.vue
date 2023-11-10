@@ -16,6 +16,7 @@
                 <div class="text-subtitle-2 text-red" v-if="user.errors.has('password')" v-html="user.errors.get('password')" />
 
             <v-btn type="submit" block class="mt-2 bg-blue-darken-2">Submit</v-btn>
+            <span>Don't you have an account ? <router-link :to="{name: 'register'}">register here</router-link></span>
             </v-form>
         </v-sheet>
     </div>

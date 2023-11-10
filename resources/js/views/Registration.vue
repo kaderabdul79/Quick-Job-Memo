@@ -17,7 +17,7 @@
                 <div class="text-subtitle-2 text-red" v-if="user.errors.has('password_confirmation')" v-html="user.errors.get('password_confirmation')" />
 
             <v-btn type="submit" block class="my-2 bg-blue-darken-2">Submit</v-btn>
-                <v-sheet>Do you have an account? <v-btn :to="{name: 'login'}" color="primary">Login</v-btn></v-sheet>
+            <span>Do you have an account ? <router-link :to="{name: 'login'}">login</router-link></span>
             </v-form>
         </v-sheet>
     </div>

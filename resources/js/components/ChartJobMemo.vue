@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
   <div class="jobmemo-statistics">{{ jobMemoOverview }}
     <Bar id="my-chart-id" :options="chartOptions" :data="chartData" />
   </div>
@@ -56,4 +56,36 @@ function updateChartData() {
 onMounted(() => {
   jobMemoOverviewApi();
 });
+</script> -->
+
+
+<template>
+  <div class="jobmemo-statistics">
+    <Bar :options="chartOptions" :data="chartData" />
+  </div>
+</template>
+
+<script setup>
+import { ref, onMounted} from 'vue';
+import { Bar } from 'vue-chartjs';
+import { Chart as ChartJS, Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale } from 'chart.js';
+ChartJS.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale);
+const chartData = ref({
+  labels: ['Total Job Memos', 'Interviews Called', 'Interviews Attended'],
+  datasets: [
+    {
+      label: 'Get an Job Memo Overview',
+      data: [13, 8, 6],
+      backgroundColor: ['rgba(255, 99, 132, 0.2)', 'rgba(54, 162, 235, 0.2)', 'rgba(255, 206, 86, 0.2)'],
+      borderColor: ['rgba(255, 99, 132, 1)', 'rgba(54, 162, 235, 1)', 'rgba(255, 206, 86, 1)'],
+      borderWidth: 1,
+    },
+  ],
+});
+const chartOptions = {
+  responsive: true,
+};
 </script>
+
+<style scoped>
+</style>
