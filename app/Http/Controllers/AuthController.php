@@ -88,14 +88,12 @@ class AuthController extends Controller
 
     // update user profile information
     public function updateProfile(Request $request, $id){
-        // $request->validate([
-        //     'name' => 'required|string',
-        //     'email' => 'required|email|unique:users,email,' . $id,
-        //     'designation' => 'nullable|string',
-        //     'picture' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-        //     'about' => 'nullable|string',
-        // ]);
-        //  return $request->input('name');
+        // return $request->file('picture');
+        $request->validate([
+            'name' => 'required|string',
+            'email' => 'required|email|unique:users,email,' . $id,
+            'picture' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+        ]);
     
         $user = User::findOrFail($id);
         $user->name = $request->input('name');
@@ -105,10 +103,15 @@ class AuthController extends Controller
 
         // Handle file upload
         if ($request->hasFile('picture')) {
-            return $request->picture;
+            // return $request->file('picture');
             $file = $request->file('picture');
-            $path = $file->store('profile_pictures', 'public');
-            $user->picture = $path;
+            $fileName = time() . '_' . $file->getClientOriginalName();
+            $file->storeAs('profile_picture', $fileName, 'public');
+            // return $fileName;
+            $user->picture = $fileName;
+        }else{
+            $response = ResponseHelper::errorResponse("failed to upload the image.", 401);
+            return response()->json($response);
         }
         $user->save();
         $response = ResponseHelper::successResponse('User information updated successfully', $data = $user);

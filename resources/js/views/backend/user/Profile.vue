@@ -12,7 +12,8 @@
                       class=""
                     >
                       <v-avatar size="85">
-                        <v-img src="https://avatars0.githubusercontent.com/u/9064066?v=4&s=460" alt="John"></v-img>
+                        <v-img :src="user?.picture ? `http://localhost:8000/storage/profile_picture/${user.picture}` : 'https://avatars0.githubusercontent.com/u/9064066?v=4&s=460'" alt="profile picture"></v-img>
+                        <!-- <v-img src="https://avatars0.githubusercontent.com/u/9064066?v=4&s=460" alt="John"></v-img> -->
                       </v-avatar>
                     </v-progress-circular>
   
@@ -38,15 +39,20 @@
                     <v-progress-circular  color="#00ACC1" indeterminate :size="80" :width="5"></v-progress-circular>
                 </div>
                 </v-col>
-                <v-col cols="6" md="6" xs="12">{{ userData }}
+                <v-col cols="6" md="6" xs="12">
                   <v-sheet v-if="user" class="pa-4 border rounded-xl text-center">
                     <div><v-sheet class="text-h5 mb-2">Update profile</v-sheet></div>
                     <v-form @submit.prevent="updateProfile">
                       <v-text-field v-model="userData.name" label="Name*"></v-text-field>
+                      <div class="text-subtitle-2 text-red" v-if="userData.errors.has('name')" v-html="userData.errors.get('name')" />
                       <v-text-field v-model="userData.email" label="Email*"></v-text-field>
+                      <div class="text-subtitle-2 text-red" v-if="userData.errors.has('email')" v-html="userData.errors.get('email')" />
                       <v-text-field v-model="userData.designation" label="Designation"></v-text-field>
+                      <div class="text-subtitle-2 text-red" v-if="userData.errors.has('designation')" v-html="userData.errors.get('designation')" />
                       <v-file-input type="file" @change="handleFileChange" v-model="userData.profile" label="Upload Profile Picture"></v-file-input>
+                      <div class="text-subtitle-2 text-red" v-if="userData.errors.has('picture')" v-html="userData.errors.get('picture')" />
                       <v-textarea v-model="userData.about" clearable label="About Me"></v-textarea>
+                      <div class="text-subtitle-2 text-red" v-if="userData.errors.has('about')" v-html="userData.errors.get('about')" />
                       <v-btn type="submit" @click="updateProfile" block color="#00ACC1 ">Update</v-btn>
                     </v-form>
                   </v-sheet>
@@ -74,65 +80,52 @@ onMounted(()=>{
 function jobmemoOverview(){
   axios.get('jobMemoOverview')
     .then(response => {
-      console.log(response.data)
+      // console.log(response.data)
       jobMemoOverview.value = response.data?.data
     })
     .catch(error => {
       console.error("Error", error);
     });
 }
-const userData = ref({
-      name: user ? user.value?.name : "",
-      email: user ? user.value?.email : "",
-      designation: "",
-      about: "",
-      picture: null,
-    });
-
+const userData = ref(new Form(
+    {
+        name:  user ? user.value?.name : "",
+        email: user ? user.value?.email : "",
+        designation: "",
+        about: "",
+        picture: null,
+    }
+));
+// const picture = ref(null)
     const handleFileChange = (event) => {
-      userData.value.picture = event.target.files[0].name;
-      console.log("Selected picture:", userData.value.picture);
+      // userData.value.picture = event.target.files[0].name;
+      // console.log("Selected picture:", userData.value.picture);
+      userData.value.picture = event.target.files[0];
+      // console.log(picture.value);
     };
 
-    // Function to build FormData object
-  //   const buildFormData = () => {
-  //     if (!userData.value) {
-  //   return "ssssssssssllllll"; // Handle empty data
-  // }
-  //     const formData = new FormData();
-      
-  //     formData.append('name', userData.value.name);console.log(userData.value.name);
-  //     formData.append('email', userData.value.email);
-  //     formData.append('designation', userData.value.designation);
-  //     formData.append('about', userData.value.about || ''); // Handle about being null
-  //     formData.append('picture', userData.value.picture);
-
-  //     console.log("FormData:", formData);
-  //     return formData;
-  //   };
-
     const updateProfile = () => {
-      // console.log("Selected 2:", userData.value.picture);
-      // let formData = new FormData();
+
       // formData.append('picture', userData.value.picture);
-      // formData.append('about',userData.value.about);
       // console.log(formData);
-      axios.put('user/' + user.value?.id + '/update',
-      {
-        name: userData.value.name,
-        email: userData.value.email,
-        designation: userData.value.designation,
-        about: userData.value.about,
-        picture: userData.value.picture,
-      }
-        // { headers: {'Content-Type': 'multipart/form-data', }}
-      )
+      const formData = new FormData();
+      formData.append('picture', userData.value.picture);
+      formData.append('about',userData.value.about);
+      formData.append('name',userData.value.name);
+      formData.append('email',userData.value.email);
+      formData.append('designation',userData.value.designation);
+      axios.post('user/' + user.value?.id + '/update',formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },})
         .then(response => {
-          console.log(response.data);
+          // console.log(response.data);
           Swal.fire({ title: 'Profile has been updated!', icon: 'success', confirmButtonText: 'OK',timer: 2000});
         })
         .catch(error => {
-          console.error("Error updating profile:", error);
+          userData.value.errors.errors = error.response?.data?.errors;
+          console.error("Error updating profile:", error.response.data?.errors);
+          // console.log("userData.value.errors.errors",userData.value.errors.errors);
         });
     }
 // 
