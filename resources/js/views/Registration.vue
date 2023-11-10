@@ -33,10 +33,10 @@ const router = useRouter()
 import Form from 'vform'
 const user = ref(new Form(
     {
-        name: 'abdul kader',
-        email: 'kader@gmail.com',
-        password: '11111111',
-        password_confirmation: '11111111',
+        name: '',
+        email: '',
+        password: '',
+        password_confirmation: '',
     }
 ));
 

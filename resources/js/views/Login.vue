@@ -32,8 +32,8 @@ const router = useRouter()
 import Form from 'vform'
 const user = ref(new Form(
     {
-        email: 'kader@gmail.com',
-        password: '11111111',
+        email: '',
+        password: '',
     }
 ));
 
