@@ -9,7 +9,7 @@
           class=""
         >
           <v-avatar size="85">
-            <v-img alt="Avatar" src="https://avatars0.githubusercontent.com/u/9064066?v=4&s=460"></v-img>
+            <v-img :src="user?.picture ? `http://localhost:8000/storage/profile_picture/${user.picture}` : 'https://avatars0.githubusercontent.com/u/9064066?v=4&s=460'" alt="profile picture"></v-img>
           </v-avatar>
         </v-progress-circular>
   

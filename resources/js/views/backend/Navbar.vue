@@ -4,10 +4,7 @@
             <v-spacer></v-spacer>
             <div class="profile" v-if="user">
                 <v-avatar size="36px">
-                    <v-img
-                        alt="Avatar"
-                        src="https://avatars0.githubusercontent.com/u/9064066?v=4&s=460"
-                    ></v-img>
+                    <v-img :src="user?.picture ? `http://localhost:8000/storage/profile_picture/${user.picture}` : 'https://avatars0.githubusercontent.com/u/9064066?v=4&s=460'" alt="profile picture"></v-img>
                 </v-avatar>
                 <span class="ml-2 subtitle-2">{{ user.name }}</span>
                 <!--  -->
@@ -24,8 +21,8 @@
                     <v-list>
                         <v-list-item
                             prepend-icon="mdi-account"
-                            title="Users Profile"
-                            value="users"
+                            title="User Profile"
+                            value="user"
                             :to="{name: 'profile'}"
                         ></v-list-item>
                         <v-list-item
