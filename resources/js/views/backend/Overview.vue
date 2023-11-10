@@ -42,7 +42,7 @@ function jobmemoOverview(){
       console.error("Error", error);
     });
 }
-console.log(user);
+
 onMounted(()=>{
     fetchUser()
     jobmemoOverview()

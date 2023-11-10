@@ -47,8 +47,7 @@ const links = [
     { text: "DASHBOARD", icon: "mdi mdi-home-outline", name: "" },
     { text: "Manage Job Memo", icon: "mdi mdi-controller-classic-outline", name: "jobmemos" },
     { text: "Add Job Memo", icon: "mdi mdi-file-plus", name: "createJobMemo" },
-    { text: "REPORTS", icon: "mdi mdi-file-chart-outline", name: "" },
-    { text: "STATISTICS", icon: "mdi mdi-chart-pie", name: "" },
+    { text: "STATISTICS", icon: "mdi mdi-chart-pie", name: "jobmemosStatistics" },
     { text: "SETTINGS", icon: "mdi mdi-cog-outline", name: "" },
   ];
  

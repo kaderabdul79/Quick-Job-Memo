@@ -81,7 +81,12 @@ const router = createRouter({
             }
           ],
         },
-
+        // statistics
+        { 
+          path: "jobmemos/statistics", 
+          name: 'jobmemosStatistics',
+          component: () => import("../views/backend/StatisticsJobMemos.vue") 
+        },
       ]
     }
   ]
