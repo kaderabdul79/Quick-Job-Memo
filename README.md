@@ -47,7 +47,7 @@ JobMemo is a personalized job management platform designed to streamline your jo
 *Caption: Personalize your profile with your preferences and career goals.*
 
 #### 5. Add New Job Memo
-![JobMemo Add New Job Memo](/showcase/job-memo-add-new.png)
+![JobMemo Add New Job Memo](/showcase/job-memo-add-new.PNG)
 *Caption: Easily add new job applications and relevant details.*
 
 ### 6. Statistics
