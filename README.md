@@ -56,5 +56,23 @@ JobMemo is a personalized job management platform designed to streamline your jo
 *Caption: Quick statistics to help you visualize your job memo overview.*
 
 #### 7. Landing Page
-![JobMemo Landing Page](/showcase/jobmemo-landing-page.png)
+![JobMemo Landing Page](/showcase/job-memo-landing-page.png)
 *Caption: Engaging landing page with a visual representation of your job applications.*
+
+### Technologies Used
+
+- **Laravel 10**
+
+- **Vue 3 Composition API**
+
+- **Vuetify**
+
+- **Vue Router**
+
+- **Vform**
+
+- **SweetAlert2**
+
+- **Vue3-Smooth-Scroll** 
+
+- **Vue-ChartJS**
